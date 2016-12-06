@@ -1,6 +1,8 @@
 package com.example.java;
 
+import com.sun.javafx.scene.text.TextLayout;
 import com.sun.javafx.scene.text.TextLine;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
  */
 public class CourseWindowSetup {
     private Stage stage = new Stage();
+
+    int lefthours;
 
     Label subject;
     Label cred;
@@ -67,7 +71,9 @@ public class CourseWindowSetup {
 
         vbox.getChildren().addAll(title, hbox1);
 
-        Label taskLabel = new Label("List your tasks and working hours!");
+        Label taskLabel = new Label("List your tasks and working hours");
+        Text info = new Text("Total Working hours are:" + lefthours);
+
         taskLabel.setTranslateX(150);
         taskLabel.setTranslateX(50);
         taskLabel.setScaleY(1.2);
@@ -92,6 +98,7 @@ public class CourseWindowSetup {
 
 
         saveCourseInfomration = new Button("Save");
+        //Label hoursLabel = new Label(""); Math classist ule tuua
 
         vbox.getChildren().addAll(taskLabel, hbox2, saveCourseInfomration);
         addTaskLine(false);
