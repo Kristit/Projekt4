@@ -43,7 +43,7 @@ public class CourseWindowSetup {
 
     public CourseWindowSetup() {
         startStage();
-
+        setSaveCourseButton();
     }
 
     private void startStage() {
@@ -77,14 +77,15 @@ public class CourseWindowSetup {
     private void setSaveCourseButton() {
 
 
-        saveCourseButton.setOnAction(event -> {
-            String courseName = subjectName.getText();// votan textifildist name teksti sisse!
+         saveCourseButton.setOnAction(event -> {
+           String courseName = subjectName.getText();// votan textifildist name teksti sisse!
             System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
 
             int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
             System.out.println(ap);
 
-            new Task();
+            new Task(courseName, ap);
+
 
         });
     }

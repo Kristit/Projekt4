@@ -4,7 +4,7 @@ package com.example.java;
  * Created by kristitammet on 07/12/2016.
  */
 public class CourseLine {
-    String courseName;
+   /* String courseName;
     int ap;
     // ArrayList<Task> tasks; WAHT ARRAY LISTI EI NEED TO PUT IT?
 
@@ -16,6 +16,6 @@ public class CourseLine {
     @Override
     public String toString() {
         return ("Course name: "+ name + " and credits: "+ credits);
-    }
+    }*/
 }
 

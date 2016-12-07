@@ -38,9 +38,8 @@ public class TaskLine extends HBox {
     }
 
 
-    public Task getTask() {
-        return new Task(0, getTaskName(), getHours(), getDeadline(), 0);
-    }
+    /*public Task getTask() { return new Task(0, getTaskName(), getHours(), getDeadline(), 0);
+    }*/
 
     public String getTaskName() {
         return taskName.getText();

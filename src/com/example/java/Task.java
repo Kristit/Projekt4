@@ -15,7 +15,8 @@ import java.util.ArrayList;
 /**
  * Created by kristitammet on 07/12/2016.
  */
-public class Task {
+public class Task{
+
     Button saveButton;
     Button addButton;
     VBox vBox = new VBox();
@@ -31,13 +32,19 @@ public class Task {
     Button useXButton;
     DatePicker deadline;
     ArrayList<TaskLine> toDoTasks = new ArrayList<>();//when I have a TextLine
+    VBox vbox2 = new VBox();
 
 
 
-    /*public Tasks(String courseName, int ap) {
+
+    public Task(String courseName, int ap) {
         this.courseName = courseName;
         this.ap = ap;
-    }*/
+        addTask();
+
+          }
+
+
 
     private void addTask() {
 
@@ -62,7 +69,7 @@ public class Task {
         vbox2.getChildren().addAll(hbox2, saveButton);
 
         addTaskButton.setOnAction(event -> {
-            TaskLine(true);
+            new TaskLine(true);
         });
 
         //vbox2.getChildren().add(saveButton);
