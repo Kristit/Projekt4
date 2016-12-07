@@ -15,11 +15,10 @@ import java.util.ArrayList;
 /**
  * Created by kristitammet on 07/12/2016.
  */
-public class Task{
+public class Task extends VBox{
 
     Button saveButton;
     Button addButton;
-    VBox vBox = new VBox();
     private String courseName;
     private int ap;
     Label label2;
@@ -31,16 +30,15 @@ public class Task{
     Button addTaskButton;
     Button useXButton;
     DatePicker deadline;
+
+    VBox vbox;
+
     ArrayList<TaskLine> toDoTasks = new ArrayList<>();//when I have a TextLine
-    VBox vbox2 = new VBox();
-
-
 
 
     public Task(String courseName, int ap) {
         this.courseName = courseName;
         this.ap = ap;
-        addTask();
 
           }
 
@@ -51,7 +49,6 @@ public class Task{
 
         label2 = new Label("List your tasks and working hours!");
 
-        VBox vbox2 = new VBox();
         HBox hbox2 = new HBox();
 
         task = new Label("Task name"); //lisad teksti valja (Miks TextFiled peab ara votma?)
@@ -66,7 +63,7 @@ public class Task{
 
 
         saveButton = new Button("Save");
-        vbox2.getChildren().addAll(hbox2, saveButton);
+        vbox.getChildren().addAll(hbox2, saveButton);
 
         addTaskButton.setOnAction(event -> {
             new TaskLine(true);
@@ -80,11 +77,11 @@ public class Task{
     private void addTaskLine(boolean useXButton) {
         TaskLine newTaskLine = new TaskLine(useXButton);
 
-        vBox.getChildren().add(vBox.getChildren().size() - 2, newTaskLine);// creats new TaskLine()
+        vbox.getChildren().add(vbox.getChildren().size() - 2, newTaskLine);// creats new TaskLine()
         toDoTasks.add(newTaskLine);
         if (useXButton) {
             newTaskLine.removeTaskButton.setOnAction(event -> {
-                vBox.getChildren().remove(newTaskLine);
+                vbox.getChildren().remove(newTaskLine);
                 toDoTasks.remove(toDoTasks.size() - 1);
             });
         }

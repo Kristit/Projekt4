@@ -19,10 +19,8 @@ import java.util.ArrayList;
  */
 public class CourseWindowSetup {
     public Stage stage = new Stage();
-    public VBox vbox2;
 
     int lefthours;
-
     Label subject;
     Label cred;
     TextField subjectName;
@@ -32,7 +30,7 @@ public class CourseWindowSetup {
     Label task;
     Label workingh;
     TextField taskName;
-    VBox vbox = new VBox();
+    public VBox vbox = new VBox();
     TextField hours;
     Button saveCourseButton;
     Button removeTaskButton;
@@ -69,7 +67,7 @@ public class CourseWindowSetup {
         hbox1.getChildren().addAll(subject, subjectName, cred, credits, saveCourseButton);
 
         vbox.getChildren().addAll(title, hbox1);
-        //VBox vbox2 = new VBox(); DO WE NEED THIS HERE?
+
 
 
     }
