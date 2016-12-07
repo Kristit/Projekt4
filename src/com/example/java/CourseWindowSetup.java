@@ -18,7 +18,8 @@ import java.util.ArrayList;
  * Created by kristitammet on 06/12/2016.
  */
 public class CourseWindowSetup {
-    private Stage stage = new Stage();
+    public Stage stage = new Stage();
+    public VBox vbox2;
 
     int lefthours;
 
@@ -31,10 +32,9 @@ public class CourseWindowSetup {
     Label task;
     Label workingh;
     TextField taskName;
-    ChoiceBox choiceB;
     VBox vbox = new VBox();
     TextField hours;
-    Button addTaskButton;
+    Button saveCourseButton;
     Button removeTaskButton;
     Button useXButton;
     DatePicker deadline;
@@ -65,71 +65,31 @@ public class CourseWindowSetup {
         subjectName = new TextField();
         cred = new Label("credits");
         credits = new TextField();
-        addCourseButton = new Button("Add course");
-        hbox1.getChildren().addAll(subject, subjectName, cred, credits, addCourseButton);
-
+        saveCourseButton = new Button("Save course");
+        hbox1.getChildren().addAll(subject, subjectName, cred, credits, saveCourseButton);
 
         vbox.getChildren().addAll(title, hbox1);
+        //VBox vbox2 = new VBox(); DO WE NEED THIS HERE?
 
-        Label taskLabel = new Label("List your tasks and working hours");
-        Text info = new Text("Total Working hours are:" + lefthours);
 
-        taskLabel.setTranslateX(150);
-        taskLabel.setTranslateX(50);
-        taskLabel.setScaleY(1.2);
+    }
 
-        HBox hbox2 = new HBox();
-        hbox2.setSpacing(4);
-        task = new Label("Task name"); //lisad teksti valja (Miks TextFiled peab ara votma?)
-        taskName = new TextField();
-        workingh = new Label("hours");
-        hours = new TextField();
-        deadline = new DatePicker();
-        ChoiceBox choiceB = new ChoiceBox(FXCollections.observableArrayList("Esimene", "Teine"));
-        removeTaskButton = new Button("X");
-        removeTaskButton.setDisable(!useXButton);// Boolena not
-        addTaskButton = new Button("Add Task");
+    private void setSaveCourseButton() {
 
-        hbox2.getChildren().addAll(task, taskName, workingh, hours, deadline, choiceB, removeTaskButton, addTaskButton);
 
-        addTaskButton.setOnAction(event -> {
-            addTaskLine(true);
+        saveCourseButton.setOnAction(event -> {
+            String courseName = subjectName.getText();// votan textifildist name teksti sisse!
+            System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
+
+            int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
+            System.out.println(ap);
+
+            new Task();
+
         });
-
-
-        saveCourseInfomration = new Button("Save");
-        //Label hoursLabel = new Label(""); Math classist ule tuua
-
-        vbox.getChildren().addAll(taskLabel, hbox2, saveCourseInfomration);
-        addTaskLine(false);
-
     }
 
-    private void addTaskLine(boolean useXButton) {
-        TaskLine newTaskLine = new TaskLine(useXButton);
-
-        vbox.getChildren().add(vbox.getChildren().size() - 2, newTaskLine);// creats new TaskLine()
-
-        toDoTasks.add(newTaskLine);
-        if (useXButton) {
-            newTaskLine.removeTaskButton.setOnAction(event -> {
-                vbox.getChildren().remove(newTaskLine);
-                toDoTasks.remove(toDoTasks.size() - 1);
-            });
-
-        }
-    }
-        private void setClickEvent() {
+}
 
 
-            saveCourseInfomration.setOnAction(event -> {
-                String courseName = subjectName.getText();// votan textifildist name teksti sisse!
-                System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
 
-                int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
-                System.out.println(ap);
-
-
-            });
-        }
-    }

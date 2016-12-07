@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
  */
 public class Math {
 
-    String courseName;
+  /* String courseName;
     int ap;
     int leftHours;
 
@@ -52,5 +52,6 @@ public class Math {
         }
 
         return taskList;
+        */
     }
 

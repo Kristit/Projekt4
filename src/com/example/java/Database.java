@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by kristitammet on 06/12/2016.
  */
 public class Database {
-
+/*
         private static final String FILENAME = "database.txt";
 
         public static void save(ArrayList<Course> courses) {
@@ -31,5 +31,6 @@ public class Database {
                 throw new RuntimeException(e);
             }
         }
+        */
     }
 

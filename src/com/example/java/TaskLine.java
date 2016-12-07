@@ -19,9 +19,6 @@ public class TaskLine extends HBox {
     private Label workingh;
     private TextField hours;
     private DatePicker deadline;
-    ChoiceBox choiceB;
-    Button removeButton;
-
     Button addTaskButton;
     Button removeTaskButton;
 
@@ -34,13 +31,15 @@ public class TaskLine extends HBox {
         deadline = new DatePicker();
         addTaskButton = new Button("Add Task");
         removeTaskButton = new Button("X");
+        removeTaskButton.setDisable(!useXButton);// Boolena not
 
         getChildren().addAll(task, taskName, workingh, hours, deadline, removeTaskButton);
 
     }
 
+
     public Task getTask() {
-        return new Task(0, getTaskName(), getHours(),getCourse(),getDeadline(), 0);
+        return new Task(0, getTaskName(), getHours(), getDeadline(), 0);
     }
 
     public String getTaskName() {
@@ -58,7 +57,4 @@ public class TaskLine extends HBox {
 
     }
 
-    public String getCourse() {
-        return choiceB.getId();
-    }
-}
+  }
