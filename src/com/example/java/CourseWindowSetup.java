@@ -1,15 +1,13 @@
 package com.example.java;
 
-import com.sun.javafx.scene.text.TextLayout;
-import com.sun.javafx.scene.text.TextLine;
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,6 +24,7 @@ public class CourseWindowSetup {
     TextField subjectName;
     TextField credits;
     VBox tasksBox;
+    VBox coursesBox;
     Button addCourseButton;
     Button saveCourseInfomration;
     Label task;
@@ -39,7 +38,7 @@ public class CourseWindowSetup {
     DatePicker deadline;
 
     ArrayList<TaskLine> toDoTasks = new ArrayList<>();//when you have a Text Line not a TextField anymore
-
+    ArrayList<CourseLine> courses = new ArrayList<>();
 
     public CourseWindowSetup() {
         startStage();
@@ -53,32 +52,30 @@ public class CourseWindowSetup {
 
         stage.setScene(courseWindow);
         stage.show();
+
         Label title = new Label("Welcome to Time & Task Calculator");
         title.setTranslateX(150);
         title.setTranslateX(50);
         title.setScaleY(1.2);
 
-        HBox hbox1 = new HBox();
-
-        hbox1.setSpacing(4);
-        subject = new Label("Course name"); //lisad teksti valja (Miks TextFiled peab ara votma?)
-        subjectName = new TextField();
-        cred = new Label("credits");
-        credits = new TextField();
-        saveButton = new Button("Save");
-        hbox1.getChildren().addAll(subject, subjectName, cred, credits);
+        coursesBox = new VBox();
 
         tasksBox = new VBox(); // loon uue layouti
         tasksBox.setSpacing(5);
         Label label2 = new Label("List your tasks and working hours!");
 
+        addCourseLine(false);
 
         addTaskLine(false);
         Button addTaskButton = new Button("Add Task");
-        vbox.getChildren().addAll(title, hbox1, label2, tasksBox, saveButton, addTaskButton);
+        vbox.getChildren().addAll(title, coursesBox, label2, tasksBox, saveButton, addTaskButton);
 
         addTaskButton.setOnAction(event -> {
             addTaskLine(true);
+        });
+
+        addCourseButton.setOnAction(event -> {
+            addCourseLine(true);
         });
 
         saveButton.setOnAction(event -> {
@@ -104,24 +101,41 @@ public class CourseWindowSetup {
         }
     }
 
-        private void saveButton() {
+    private void addCourseLine(boolean useXButton) {
+        CourseLine newCourseLine = new CourseLine(useXButton);
 
 
+        coursesBox.getChildren().add(newCourseLine);// creats new TaskLine()
+        courses.add(newCourseLine);
+        if (useXButton) {
+            newCourseLine.removeCourseButton.setOnAction(event -> {
+                coursesBox.getChildren().remove(newCourseLine);
+                courses.remove(courses.size() - 1);
+            });
+        }
+    }
 
 
-        /*Database.save(Main.courses);
-             // toDoTasks ArrayList iterable- saad koikide elementide poole poorduda
+    private void saveButton() {
 
-        for (TaskLine toDoTask : toDoTasks) {
+        for (Node toDoTask : tasksBox.getChildren()) {
+            TaskLine tl = (TaskLine)toDoTask;
+            Task task = tl.getTask();
 
-            System.out.println(toDoTask.taskName.getText()); // Trukib iga uksiku TextFieldi sisu systemouti
-        System.out.println(toDoTask.getTaskName() + ": " + toDoTask.getHours()+ " and deadline is: "+ toDoTask.getDeadline());
-        Main.database.addTask(toDoTask.getTaskName());}*/
-
-
-
+            System.out.println(tl.getTask()); // Trukib iga uksiku TextFieldi sisu systemouti
+            System.out.println(toDoTask.getTaskName() + ": " + toDoTask.getHours() + " and deadline is: " + toDoTask.getDeadline());
+            Main.database.addTask(toDoTask.getTaskName());
         }
 
+
+        for (CourseLine course : courses) {
+
+            System.out.println(course.courseName.getText()); // Trukib iga uksiku TextFieldi sisu systemouti
+            System.out.println(course.getTaskName() + ": " + course.getcred());
+            Main.database.addTask(toDoTask.getTaskName());
+        }
+
+    }
 
 }
 

@@ -1,11 +1,7 @@
 package com.example.java;
 
-import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import java.time.LocalDate;
-
-import java.time.LocalDate;
 
 /**
  * Created by kristitammet on 06/12/2016.
