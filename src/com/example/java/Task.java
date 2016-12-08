@@ -15,77 +15,27 @@ import java.util.ArrayList;
 /**
  * Created by kristitammet on 07/12/2016.
  */
-public class Task extends VBox{
-
-    Button saveButton;
-    Button addButton;
+public class Task {
+    
     private String courseName;
     private int ap;
-    Label label2;
-    Label task;
-    Label workingh;
-    TextField taskName;
-    TextField hours;
-    Button removeTaskButton;
-    Button addTaskButton;
-    Button useXButton;
-    DatePicker deadline;
 
-    VBox vbox;
-
-    ArrayList<TaskLine> toDoTasks = new ArrayList<>();//when I have a TextLine
-
+    
 
     public Task(String courseName, int ap) {
         this.courseName = courseName;
         this.ap = ap;
 
-          }
-
-
-
-    private void addTask() {
-
-
-        label2 = new Label("List your tasks and working hours!");
-
-        HBox hbox2 = new HBox();
-
-        task = new Label("Task name"); //lisad teksti valja (Miks TextFiled peab ara votma?)
-        taskName = new TextField();
-        workingh = new Label("hours");
-        hours = new TextField();
-        deadline = new DatePicker();
-        addTaskButton = new Button("Add Task");
-        removeTaskButton = new Button("X");
-
-        hbox2.getChildren().addAll(label2, task,taskName, workingh, hours, deadline, addTaskButton, removeTaskButton);
-
-
-        saveButton = new Button("Save");
-        vbox.getChildren().addAll(hbox2, saveButton);
-
-        addTaskButton.setOnAction(event -> {
-            new TaskLine(true);
-        });
-
-        //vbox2.getChildren().add(saveButton);
-        //TaskLine(false);
     }
 
-
-    private void addTaskLine(boolean useXButton) {
-        TaskLine newTaskLine = new TaskLine(useXButton);
-
-        vbox.getChildren().add(vbox.getChildren().size() - 2, newTaskLine);// creats new TaskLine()
-        toDoTasks.add(newTaskLine);
-        if (useXButton) {
-            newTaskLine.removeTaskButton.setOnAction(event -> {
-                vbox.getChildren().remove(newTaskLine);
-                toDoTasks.remove(toDoTasks.size() - 1);
-            });
-        }
+    public Task(int i, String text, Integer hours, String typeSelector, LocalDate value, int i1) {
     }
+    
+    
+    
+
+
+
 
 
       /*saveButton.setOnAction(event -> {
@@ -97,7 +47,7 @@ public class Task extends VBox{
         //}
     });*/
 
- }
+}
 
 
 

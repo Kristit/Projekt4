@@ -1,7 +1,6 @@
 package com.example.java;
 
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import java.time.LocalDate;
@@ -19,41 +18,40 @@ public class TaskLine extends HBox {
     private Label workingh;
     private TextField hours;
     private DatePicker deadline;
-    Button addTaskButton;
+
     Button removeTaskButton;
+    ChoiceBox courseSelect;
+
 
     TaskLine(boolean useXButton) {
+
+
+        Label label2 = new Label("List your tasks and working hours!");
+
+        HBox hbox2 = new HBox();
 
         task = new Label("Task name"); //lisad teksti valja (Miks TextFiled peab ara votma?)
         taskName = new TextField();
         workingh = new Label("hours");
         hours = new TextField();
+        ChoiceBox courseSelect = new ChoiceBox();
         deadline = new DatePicker();
-        addTaskButton = new Button("Add Task");
+
         removeTaskButton = new Button("X");
         removeTaskButton.setDisable(!useXButton);// Boolena not
 
-        getChildren().addAll(task, taskName, workingh, hours, deadline, removeTaskButton);
+        getChildren().addAll(task, taskName, workingh, hours, courseSelect, deadline, removeTaskButton);
 
     }
 
 
-    /*public Task getTask() { return new Task(0, getTaskName(), getHours(), getDeadline(), 0);
-    }*/
-
-    public String getTaskName() {
-        return taskName.getText();
-    }
-
-    public Integer getHours() {
+    public Task getTask() {
         String hoursString = hours.getText();
         Integer hours = Integer.valueOf(hoursString);
-        return hours;
+
+
+        return new Task(0, taskName.getText(), hours, courseSelect.getTypeSelector(), deadline.getValue(), 0);
+
+
     }
-
-    public LocalDate getDeadline() {
-        return deadline.getValue();
-
-    }
-
-  }
+}

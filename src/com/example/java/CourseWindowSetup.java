@@ -25,6 +25,7 @@ public class CourseWindowSetup {
     Label cred;
     TextField subjectName;
     TextField credits;
+    VBox tasksBox;
     Button addCourseButton;
     Button saveCourseInfomration;
     Label task;
@@ -32,16 +33,17 @@ public class CourseWindowSetup {
     TextField taskName;
     public VBox vbox = new VBox();
     TextField hours;
-    Button saveCourseButton;
+    Button saveButton;
     Button removeTaskButton;
     Button useXButton;
     DatePicker deadline;
+
     ArrayList<TaskLine> toDoTasks = new ArrayList<>();//when you have a Text Line not a TextField anymore
 
 
     public CourseWindowSetup() {
         startStage();
-        setSaveCourseButton();
+        //setSaveCourseButton();
     }
 
     private void startStage() {
@@ -63,30 +65,63 @@ public class CourseWindowSetup {
         subjectName = new TextField();
         cred = new Label("credits");
         credits = new TextField();
-        saveCourseButton = new Button("Save course");
-        hbox1.getChildren().addAll(subject, subjectName, cred, credits, saveCourseButton);
+        saveButton = new Button("Save");
+        hbox1.getChildren().addAll(subject, subjectName, cred, credits);
 
-        vbox.getChildren().addAll(title, hbox1);
-
-
-
-    }
-
-    private void setSaveCourseButton() {
+        tasksBox = new VBox(); // loon uue layouti
+        tasksBox.setSpacing(5);
+        Label label2 = new Label("List your tasks and working hours!");
 
 
-         saveCourseButton.setOnAction(event -> {
-           String courseName = subjectName.getText();// votan textifildist name teksti sisse!
+        addTaskLine(false);
+        Button addTaskButton = new Button("Add Task");
+        vbox.getChildren().addAll(title, hbox1, label2, tasksBox, saveButton, addTaskButton);
+
+        addTaskButton.setOnAction(event -> {
+            addTaskLine(true);
+        });
+
+        saveButton.setOnAction(event -> {
+            String courseName = subjectName.getText();// votan textifildist name teksti sisse!
             System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
 
             int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
             System.out.println(ap);
-
-            new Task(courseName, ap);
-
-
         });
     }
+
+    private void addTaskLine(boolean useXButton) {
+        TaskLine newTaskLine = new TaskLine(useXButton);
+
+
+        tasksBox.getChildren().add(newTaskLine);// creats new TaskLine()
+        toDoTasks.add(newTaskLine);
+        if (useXButton) {
+            newTaskLine.removeTaskButton.setOnAction(event -> {
+                tasksBox.getChildren().remove(newTaskLine);
+                toDoTasks.remove(toDoTasks.size() - 1);
+            });
+        }
+    }
+
+        private void saveButton() {
+
+
+
+
+        /*Database.save(Main.courses);
+             // toDoTasks ArrayList iterable- saad koikide elementide poole poorduda
+
+        for (TaskLine toDoTask : toDoTasks) {
+
+            System.out.println(toDoTask.taskName.getText()); // Trukib iga uksiku TextFieldi sisu systemouti
+        System.out.println(toDoTask.getTaskName() + ": " + toDoTask.getHours()+ " and deadline is: "+ toDoTask.getDeadline());
+        Main.database.addTask(toDoTask.getTaskName());}*/
+
+
+
+        }
+
 
 }
 
