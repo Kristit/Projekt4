@@ -17,7 +17,7 @@ public class CourseLine extends HBox{
 
 
 
-    public CourseLine() {
+    public CourseLine(boolean useXButton) {
 
 
         HBox hbox1 = new HBox();
@@ -28,9 +28,21 @@ public class CourseLine extends HBox{
         Label cred = new Label("credits");
         credits = new TextField();
         removeCourseButton = new Button("X");
+        removeCourseButton.setDisable(!useXButton);
         hbox1.getChildren().addAll(subject, subjectName, cred, credits, removeCourseButton);
+
 
     }
 
 
+
+
+    public Course getCourse() {
+
+        String cred = credits.getText();
+
+        int ap = Integer.parseInt(cred);
+
+        return new Course(subjectName.getText(), ap);
+    }
 }

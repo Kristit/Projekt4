@@ -6,32 +6,40 @@ import java.time.LocalDate;
  * Created by kristitammet on 07/12/2016.
  */
 public class Task {
-    
+
+
     private String courseName;
-    String name;
-    Integer id= null;
+    private String name;
+    private int hours;
+    private LocalDate deadline;
 
-    private int ap;
 
-    
 
-    public Task(String courseName, int ap) {
-        this.courseName = courseName;
-        this.ap = ap;
+
+    public Task(String name, int hours, String courseName, LocalDate deadline) {
+        this.name = name;
+        this.hours = hours;
+        this.courseName= courseName;
+        this.deadline = deadline;
+
 
     }
 
-    public Task(int i, String text, Integer hours, String typeSelector, LocalDate value, int i1) {
-
+    public String getCourseName() {
+        return courseName;
     }
-    
-    
-    
 
+    public String getName() {
+        return name;
+    }
 
+    public int getHours() {
+        return hours;
+    }
 
-
-
+    public LocalDate getDeadline() {
+        return deadline;
+    }
 }
 
 

@@ -43,10 +43,10 @@ public class TaskLine extends HBox {
 
     public Task getTask() {
         String hoursString = hours.getText();
-        Integer hours = Integer.valueOf(hoursString);
+        int hours = Integer.parseInt(hoursString);
 
 
-        return new Task(0, taskName.getText(), hours, courseSelect.getTypeSelector(), deadline.getValue(), 0);
+        return new Task(taskName.getText(), hours, courseSelect.getTypeSelector(), deadline.getValue());
 
 
     }

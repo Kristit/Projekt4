@@ -26,6 +26,7 @@ public class CourseWindowSetup {
     VBox tasksBox;
     VBox coursesBox;
     Button addCourseButton;
+    Button  addTaskButton;
     Button saveCourseInfomration;
     Label task;
     Label workingh;
@@ -37,12 +38,10 @@ public class CourseWindowSetup {
     Button useXButton;
     DatePicker deadline;
 
-    ArrayList<TaskLine> toDoTasks = new ArrayList<>();//when you have a Text Line not a TextField anymore
-    ArrayList<CourseLine> courses = new ArrayList<>();
 
     public CourseWindowSetup() {
         startStage();
-        //setSaveCourseButton();
+
     }
 
     private void startStage() {
@@ -68,22 +67,29 @@ public class CourseWindowSetup {
 
         addTaskLine(false);
         Button addTaskButton = new Button("Add Task");
-        vbox.getChildren().addAll(title, coursesBox, label2, tasksBox, saveButton, addTaskButton);
+        saveButton= new Button("Save");
+        addCourseButton = new Button ("Add course");
+        addTaskButton = new Button ("Add task");
+
+        vbox.getChildren().addAll(title, coursesBox, label2, tasksBox, saveButton, addTaskButton, addCourseButton);
 
         addTaskButton.setOnAction(event -> {
             addTaskLine(true);
         });
 
         addCourseButton.setOnAction(event -> {
+
             addCourseLine(true);
         });
 
         saveButton.setOnAction(event -> {
-            String courseName = subjectName.getText();// votan textifildist name teksti sisse!
+
+            saveButton();
+            /*String courseName = subjectName.getText();// votan textifildist name teksti sisse!
             System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
 
             int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
-            System.out.println(ap);
+            System.out.println(ap);*/
         });
     }
 
@@ -92,11 +98,10 @@ public class CourseWindowSetup {
 
 
         tasksBox.getChildren().add(newTaskLine);// creats new TaskLine()
-        toDoTasks.add(newTaskLine);
         if (useXButton) {
             newTaskLine.removeTaskButton.setOnAction(event -> {
                 tasksBox.getChildren().remove(newTaskLine);
-                toDoTasks.remove(toDoTasks.size() - 1);
+
             });
         }
     }
@@ -106,11 +111,10 @@ public class CourseWindowSetup {
 
 
         coursesBox.getChildren().add(newCourseLine);// creats new TaskLine()
-        courses.add(newCourseLine);
         if (useXButton) {
             newCourseLine.removeCourseButton.setOnAction(event -> {
                 coursesBox.getChildren().remove(newCourseLine);
-                courses.remove(courses.size() - 1);
+
             });
         }
     }
@@ -118,22 +122,33 @@ public class CourseWindowSetup {
 
     private void saveButton() {
 
+        Main.courses.clear();// makes it emepty
+
+
+        for (Node courseNode : coursesBox.getChildren()) {
+            CourseLine cl = (CourseLine) courseNode;
+            Course course = cl.getCourse();
+
+            System.out.println("Course name is : " + course.getName() + " and credits are: " + course.getCredits());
+
+            Main.courses.add(course);
+        }
+
         for (Node toDoTask : tasksBox.getChildren()) {
-            TaskLine tl = (TaskLine)toDoTask;
+            TaskLine tl = (TaskLine) toDoTask;
             Task task = tl.getTask();
+            for (Course course : Main.courses) {
+                if (course.getName().equals(task.getCourseName())) {
+                    course.tasks.add(task);
+                }
 
-            System.out.println(tl.getTask()); // Trukib iga uksiku TextFieldi sisu systemouti
-            System.out.println(toDoTask.getTaskName() + ": " + toDoTask.getHours() + " and deadline is: " + toDoTask.getDeadline());
-            Main.database.addTask(toDoTask.getTaskName());
+            }
+
+
+            System.out.println(task.getName() + task.getHours() + task.getCourseName() + task.getDeadline());
+
         }
-
-
-        for (CourseLine course : courses) {
-
-            System.out.println(course.courseName.getText()); // Trukib iga uksiku TextFieldi sisu systemouti
-            System.out.println(course.getTaskName() + ": " + course.getcred());
-            Main.database.addTask(toDoTask.getTaskName());
-        }
+        Database.save(Main.courses);
 
     }
 
