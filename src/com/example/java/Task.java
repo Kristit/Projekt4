@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Task {
 
 
-    private String courseName;
+
     private String name;
     private int hours;
     private LocalDate deadline;
@@ -16,18 +16,14 @@ public class Task {
 
 
 
-    public Task(String name, int hours, String courseName, LocalDate deadline) {
+    public Task(String name, int hours, LocalDate deadline) {
         this.name = name;
         this.hours = hours;
-        this.courseName= courseName;
         this.deadline = deadline;
 
 
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
 
     public String getName() {
         return name;

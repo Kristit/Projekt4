@@ -23,20 +23,11 @@ public class CourseWindowSetup {
     Label cred;
     TextField subjectName;
     TextField credits;
-    VBox tasksBox;
     VBox coursesBox;
     Button addCourseButton;
-    Button  addTaskButton;
-    Button saveCourseInfomration;
-    Label task;
-    Label workingh;
-    TextField taskName;
     public VBox vbox = new VBox();
-    TextField hours;
-    Button saveButton;
-    Button removeTaskButton;
-    Button useXButton;
-    DatePicker deadline;
+       Button saveButton;
+
 
 
     public CourseWindowSetup() {
@@ -47,7 +38,7 @@ public class CourseWindowSetup {
     private void startStage() {
         VBox vbox = new VBox(); // loon uue layouti
         vbox.setSpacing(5);
-        Scene courseWindow = new Scene(vbox, 600, 500); //Loon tseeni ja seon selel vboxiga
+        Scene courseWindow = new Scene(vbox, 700, 700); //Loon tseeni ja seon selel vboxiga
 
         stage.setScene(courseWindow);
         stage.show();
@@ -57,25 +48,26 @@ public class CourseWindowSetup {
         title.setTranslateX(50);
         title.setScaleY(1.2);
 
-        coursesBox = new VBox();
+       coursesBox = new VBox();
+        if (! Main.courses.isEmpty()){
+            for (Course c: Main.courses){
+                CourseLine cl = addCourseLine(false);
+                // copy all the data form c to cl
 
-        tasksBox = new VBox(); // loon uue layouti
-        tasksBox.setSpacing(5);
-        Label label2 = new Label("List your tasks and working hours!");
+            }
+            addCourseLine(false);
 
-        addCourseLine(false);
 
-        addTaskLine(false);
-        Button addTaskButton = new Button("Add Task");
-        saveButton= new Button("Save");
+        }
+
+
+
+        saveButton= new Button("Save X");
         addCourseButton = new Button ("Add course");
-        addTaskButton = new Button ("Add task");
 
-        vbox.getChildren().addAll(title, coursesBox, label2, tasksBox, saveButton, addTaskButton, addCourseButton);
+        vbox.getChildren().addAll(title, coursesBox, addCourseButton, saveButton);
 
-        addTaskButton.setOnAction(event -> {
-            addTaskLine(true);
-        });
+
 
         addCourseButton.setOnAction(event -> {
 
@@ -87,13 +79,12 @@ public class CourseWindowSetup {
             saveButton();
             /*String courseName = subjectName.getText();// votan textifildist name teksti sisse!
             System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
-
             int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
             System.out.println(ap);*/
         });
     }
 
-    private void addTaskLine(boolean useXButton) {
+    /*rivate void addTaskLine(boolean useXButton) {
         TaskLine newTaskLine = new TaskLine(useXButton);
 
 
@@ -104,9 +95,9 @@ public class CourseWindowSetup {
 
             });
         }
-    }
+    }*/
 
-    private void addCourseLine(boolean useXButton) {
+    private CourseLine addCourseLine(boolean useXButton) {
         CourseLine newCourseLine = new CourseLine(useXButton);
 
 
@@ -117,6 +108,7 @@ public class CourseWindowSetup {
 
             });
         }
+        return newCourseLine;
     }
 
 
@@ -130,29 +122,18 @@ public class CourseWindowSetup {
             Course course = cl.getCourse();
 
             System.out.println("Course name is : " + course.getName() + " and credits are: " + course.getCredits());
+         for (Task t: course.getTasks()){
+             System.out.println("Task name: " + t.getName() + " task working hours: " + t.getHours() + " deadline: " + t.getDeadline());
+         }
 
             Main.courses.add(course);
         }
 
-        for (Node toDoTask : tasksBox.getChildren()) {
-            TaskLine tl = (TaskLine) toDoTask;
-            Task task = tl.getTask();
-            for (Course course : Main.courses) {
-                if (course.getName().equals(task.getCourseName())) {
-                    course.tasks.add(task);
-                }
-
-            }
 
 
-            System.out.println(task.getName() + task.getHours() + task.getCourseName() + task.getDeadline());
 
-        }
         Database.save(Main.courses);
 
     }
 
 }
-
-
-

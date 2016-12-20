@@ -14,12 +14,15 @@ public class Course {
     String name;
     int credits;
 
-    ArrayList <Task> tasks = new ArrayList<>();
 
 
-    public Course(String name, int credits) {
+    ArrayList <Task> tasks;
+
+
+    public Course(String name, int credits, ArrayList<Task> tasks) {
         this.name = name;
         this.credits = credits;
+        this.tasks= tasks;
     }
 
     public String getName() {
@@ -29,4 +32,9 @@ public class Course {
     public int getCredits() {
         return credits;
     }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 }
+

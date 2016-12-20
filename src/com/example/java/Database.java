@@ -28,7 +28,7 @@ public class Database {
                 in.close();
                 return courses;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                return new ArrayList<>();// nothing in database
 
             }
         }
