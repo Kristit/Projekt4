@@ -30,7 +30,7 @@ public class CourseWindowSetup {
 
 
 
-    public CourseWindowSetup() {
+    public CourseWindowSetup() { //???
         startStage();
 
     }
@@ -38,7 +38,7 @@ public class CourseWindowSetup {
     private void startStage() {
         VBox vbox = new VBox(); // loon uue layouti
         vbox.setSpacing(5);
-        Scene courseWindow = new Scene(vbox, 700, 700); //Loon tseeni ja seon selel vboxiga
+        Scene courseWindow = new Scene(vbox, 1300, 700); //Loon tseeni ja seon selel vboxiga
 
         stage.setScene(courseWindow);
         stage.show();
@@ -48,16 +48,17 @@ public class CourseWindowSetup {
         title.setTranslateX(50);
         title.setScaleY(1.2);
 
-       coursesBox = new VBox();
+       coursesBox = new VBox(); //????
         if (! Main.courses.isEmpty()){
             for (Course c: Main.courses){
                 CourseLine cl = addCourseLine(false);
                 // copy all the data form c to cl
+               cl.setData(c);
 
             }
+
+        }else{
             addCourseLine(false);
-
-
         }
 
 
@@ -77,10 +78,7 @@ public class CourseWindowSetup {
         saveButton.setOnAction(event -> {
 
             saveButton();
-            /*String courseName = subjectName.getText();// votan textifildist name teksti sisse!
-            System.out.println(courseName); //kasutan seda ekranail kontrollimiseks, et ka snupp tootab
-            int ap = Integer.parseInt(credits.getText());//see string mida numbriks sisestada
-            System.out.println(ap);*/
+
         });
     }
 
@@ -97,7 +95,7 @@ public class CourseWindowSetup {
         }
     }*/
 
-    private CourseLine addCourseLine(boolean useXButton) {
+    private CourseLine addCourseLine(boolean useXButton) { //???
         CourseLine newCourseLine = new CourseLine(useXButton);
 
 
@@ -108,27 +106,27 @@ public class CourseWindowSetup {
 
             });
         }
-        return newCourseLine;
+        return newCourseLine; //??
     }
 
 
     private void saveButton() {
 
-        Main.courses.clear();// makes it emepty
+        Main.courses.clear();// makes it empty
 
 
-        for (Node courseNode : coursesBox.getChildren()) {
+        for (Node courseNode : coursesBox.getChildren()) { //????
             CourseLine cl = (CourseLine) courseNode;
             Course course = cl.getCourse();
 
-            System.out.println("Course name is : " + course.getName() + " and credits are: " + course.getCredits());
-         for (Task t: course.getTasks()){
-             System.out.println("Task name: " + t.getName() + " task working hours: " + t.getHours() + " deadline: " + t.getDeadline());
-         }
+            System.out.println(course);
+
+         /*for (Task t: course.getTasks()){
+             System.out.println("Task name: " + t.getName() + " task working hours: " + t.getHours() +" worked hours: " + t.getWorkedhours() + " deadline: " + t.getDeadline());
+         }*/
 
             Main.courses.add(course);
         }
-
 
 
 

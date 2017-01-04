@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class Database {
 
-        private static final String FILENAME = "courses.db";
+        private static final String FILENAME = "courses.db"; //???
 
         public static void save(ArrayList<Course> courses) {
             try {
                 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILENAME));
                 out.writeObject(courses);
-                out.flush();
-                out.close();
+                out.flush(); //???
+                out.close(); //??
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

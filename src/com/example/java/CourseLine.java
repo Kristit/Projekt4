@@ -20,8 +20,9 @@ public class CourseLine extends VBox{
     Button removeCourseButton;
     Button  addTaskButton;
     VBox tasksBox;
+    ArrayList <TaskLine> taskLines = new ArrayList<>();
 
-    public CourseLine(boolean useXButton) {
+    public CourseLine(boolean useXButton) { //??? boolean xbutton
 
         HBox courseDetails = new HBox(4);
 
@@ -42,14 +43,23 @@ public class CourseLine extends VBox{
         tasksBox.setSpacing(5);
         getChildren().addAll(courseDetails, tasksBox, addTaskButton);
 
-        addTaskLine(false);
+        addTaskLine(false); //???
 
     }
 
     //
-    public  void setData(Course c){
+    public  void setData(Course c){ //????
         subjectName.setText(c.getName());
-        credits.setText(c.getCredits()); //kuidas Teha see integraliks?
+        credits.setText(String.valueOf(c.getCredits()));
+        ArrayList<Task> tasks = c.getTasks();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+
+            if (i != 0) {
+                addTaskLine(false);
+            }
+            taskLines.get(i).setData(task);
+        }
 
     }
 
@@ -58,10 +68,11 @@ public class CourseLine extends VBox{
 
 
         tasksBox.getChildren().add(newTaskLine);// creats new TaskLine()
+        taskLines.add(newTaskLine);
         if (useXButton) {
             newTaskLine.removeTaskButton.setOnAction(event -> {
                 tasksBox.getChildren().remove(newTaskLine);
-
+                taskLines.remove(newTaskLine);
             });
         }
     }
@@ -69,7 +80,7 @@ public class CourseLine extends VBox{
 
 
 
-    public Course getCourse() {
+    public Course getCourse() { //???
 
         String cred = credits.getText();
 
