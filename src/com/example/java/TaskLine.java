@@ -80,13 +80,13 @@ public class TaskLine extends HBox {
             Task task = getTask();
             int hoursLeft = task.getHours() - task.getWorkedhours();
             if (hoursLeft <= 0) {
-                throw new UserInputException(" Hours left must be positive!");// tekst muuda!!!!
+                throw new UserInputException(" Hours left must be positive!");
             }
             long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), task.getDeadline());
             if (daysLeft <= 0) {
                 throw new UserInputException(" Days left must be positive!");
             }
-            String message = " You neet to work " + hoursLeft + "\n hours within " + daysLeft + " days";
+            String message = " You need to work " + hoursLeft + "\n hours within " + daysLeft + " days";
             if (hoursLeft / daysLeft >= 8) {
                 message = message + "\n YOU NEED TO HURRY!";
             }
