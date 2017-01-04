@@ -1,36 +1,36 @@
 package com.example.java;
 
-        import javafx.scene.Node;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
-        import javafx.scene.control.TextField;
-        import javafx.scene.layout.HBox;
-        import javafx.scene.layout.VBox;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 /**
  * Created by kristitammet on 07/12/2016.
  */
-public class CourseLine extends VBox{
+public class CourseLine extends VBox {
 
 
     TextField subjectName;
     TextField credits;
     Button removeCourseButton;
-    Button  addTaskButton;
+    Button addTaskButton;
     VBox tasksBox;
-    ArrayList <TaskLine> taskLines = new ArrayList<>();
+    ArrayList<TaskLine> taskLines = new ArrayList<>();
 
-    public CourseLine(boolean useXButton) { //??? boolean xbutton
+    public CourseLine(boolean useXButton) {
 
         HBox courseDetails = new HBox(4);
 
-        Label subject = new Label("Course name"); //lisad teksti valja (Miks TextFiled peab ara votma?)
+        Label subject = new Label("Course name");
         subjectName = new TextField();
         Label cred = new Label("credits");
         credits = new TextField();
-        addTaskButton = new Button ("Add task");
+        addTaskButton = new Button("Add task");
         removeCourseButton = new Button("X");
         removeCourseButton.setDisable(!useXButton);
         courseDetails.getChildren().addAll(subject, subjectName, cred, credits, removeCourseButton);
@@ -39,16 +39,16 @@ public class CourseLine extends VBox{
             addTaskLine(true);
         });
 
-        tasksBox = new VBox(); // loon uue layouti
+        tasksBox = new VBox(); // loon uue layouti taskidele
         tasksBox.setSpacing(5);
         getChildren().addAll(courseDetails, tasksBox, addTaskButton);
 
-        addTaskLine(false); //???
+        addTaskLine(false);
 
     }
 
     //
-    public  void setData(Course c){ //????
+    public void setData(Course c) { // information to courseline
         subjectName.setText(c.getName());
         credits.setText(String.valueOf(c.getCredits()));
         ArrayList<Task> tasks = c.getTasks();
@@ -78,15 +78,13 @@ public class CourseLine extends VBox{
     }
 
 
-
-
-    public Course getCourse() { //???
+    public Course getCourse() {
 
         String cred = credits.getText();
 
         int ap = Integer.parseInt(cred);
 
-        ArrayList <Task> tasks = new ArrayList<> ();
+        ArrayList<Task> tasks = new ArrayList<>();
         for (Node taskNode : tasksBox.getChildren()) {
             TaskLine tl = (TaskLine) taskNode;
             Task task = tl.getTask();
@@ -94,7 +92,6 @@ public class CourseLine extends VBox{
         }
 
 
-
-            return new Course(subjectName.getText(), ap, tasks);
+        return new Course(subjectName.getText(), ap, tasks);
     }
 }

@@ -3,14 +3,10 @@ package com.example.java;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 /**
  * Created by kristitammet on 06/12/2016.
@@ -26,11 +22,10 @@ public class CourseWindowSetup {
     VBox coursesBox;
     Button addCourseButton;
     public VBox vbox = new VBox();
-       Button saveButton;
+    Button saveButton;
 
 
-
-    public CourseWindowSetup() { //???
+    public CourseWindowSetup() {
         startStage();
 
     }
@@ -48,26 +43,24 @@ public class CourseWindowSetup {
         title.setTranslateX(50);
         title.setScaleY(1.2);
 
-       coursesBox = new VBox(); //????
-        if (! Main.courses.isEmpty()){
-            for (Course c: Main.courses){
+        coursesBox = new VBox();
+        if (!Main.courses.isEmpty()) {
+            for (Course c : Main.courses) {
                 CourseLine cl = addCourseLine(false);
                 // copy all the data form c to cl
-               cl.setData(c);
+                cl.setData(c);
 
             }
 
-        }else{
+        } else {
             addCourseLine(false);
         }
 
 
-
-        saveButton= new Button("Save X");
-        addCourseButton = new Button ("Add course");
+        saveButton = new Button("Save");
+        addCourseButton = new Button("Add course");
 
         vbox.getChildren().addAll(title, coursesBox, addCourseButton, saveButton);
-
 
 
         addCourseButton.setOnAction(event -> {
@@ -77,57 +70,40 @@ public class CourseWindowSetup {
 
         saveButton.setOnAction(event -> {
 
-            saveButton();
+            save();
 
         });
     }
 
-    /*rivate void addTaskLine(boolean useXButton) {
-        TaskLine newTaskLine = new TaskLine(useXButton);
 
-
-        tasksBox.getChildren().add(newTaskLine);// creats new TaskLine()
-        if (useXButton) {
-            newTaskLine.removeTaskButton.setOnAction(event -> {
-                tasksBox.getChildren().remove(newTaskLine);
-
-            });
-        }
-    }*/
-
-    private CourseLine addCourseLine(boolean useXButton) { //???
+    private CourseLine addCourseLine(boolean useXButton) {
         CourseLine newCourseLine = new CourseLine(useXButton);
 
-
-        coursesBox.getChildren().add(newCourseLine);// creats new TaskLine()
+        coursesBox.getChildren().add(newCourseLine);
         if (useXButton) {
             newCourseLine.removeCourseButton.setOnAction(event -> {
                 coursesBox.getChildren().remove(newCourseLine);
 
             });
         }
-        return newCourseLine; //??
+        return newCourseLine; // tagastan, et saaksin seda hiljem kasutada
     }
 
 
-    private void saveButton() {
+    private void save() {
 
-        Main.courses.clear();// makes it empty
+        Main.courses.clear();// teen course listi tühjaks
 
 
-        for (Node courseNode : coursesBox.getChildren()) { //????
-            CourseLine cl = (CourseLine) courseNode;
+        for (Node courseNode : coursesBox.getChildren()) {
+            CourseLine cl = (CourseLine) courseNode;// "castimine"
             Course course = cl.getCourse();
 
             System.out.println(course);
 
-         /*for (Task t: course.getTasks()){
-             System.out.println("Task name: " + t.getName() + " task working hours: " + t.getHours() +" worked hours: " + t.getWorkedhours() + " deadline: " + t.getDeadline());
-         }*/
 
             Main.courses.add(course);
         }
-
 
 
         Database.save(Main.courses);

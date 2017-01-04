@@ -1,7 +1,9 @@
 package com.example.java;
 
-import javafx.beans.Observable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 import java.time.LocalDate;
@@ -26,7 +28,6 @@ public class TaskLine extends HBox {
     Button removeTaskButton;
 
 
-
     TaskLine(boolean useXButton) {
 
 
@@ -41,7 +42,7 @@ public class TaskLine extends HBox {
         hours = new TextField();
         workedh = new Label(" worked hours");
         updateHours = new TextField("0");
-        deadlLineLabel= new Label (" deadline");
+        deadlLineLabel = new Label(" deadline");
         deadline = new DatePicker();
         messageLabel = new Label();
 
@@ -53,60 +54,56 @@ public class TaskLine extends HBox {
     }
 
 
-    public Task getTask() { //???
+    public Task getTask() {
         String hoursString = hours.getText();
         int hours = Integer.parseInt(hoursString);
         int updateh = Integer.parseInt(updateHours.getText());
 
-        return new Task(taskName.getText(), hours,updateh, deadline.getValue());
+        return new Task(taskName.getText(), hours, updateh, deadline.getValue());
 
 
     }
-    public void setData(Task task){ //???
+
+    public void setData(Task task) {
         taskName.setText(task.getName());
         hours.setText(String.valueOf(task.getHours()));
         deadline.setValue(task.getDeadline());
         updateHours.setText(String.valueOf(task.getWorkedhours()));
-        // calkuleerima ajavahemikud ja tundidevahemikud ja uus label teha
-       mata();
+        // kalkuleerib ajavahemikud ja tundidevahemikud, et saaksin uue labeli sisu kirjutada
+        mata();
 
     }
-    // calkuleerima ajavahemikud ja tundidevahemikud ja uus label teha
 
-    public void mata (){ //????
+
+    public void mata() {
         try {
-            Task task= getTask();
-         int hoursLeft= task.getHours()-task.getWorkedhours();
-            if (hoursLeft<= 0){
+            Task task = getTask();
+            int hoursLeft = task.getHours() - task.getWorkedhours();
+            if (hoursLeft <= 0) {
                 throw new UserInputException(" Hours left must be positive!");// tekst muuda!!!!
             }
-        long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), task.getDeadline());
-            if (daysLeft<= 0){
+            long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), task.getDeadline());
+            if (daysLeft <= 0) {
                 throw new UserInputException(" Days left must be positive!");
             }
-            String message = " You neet to work "+ hoursLeft+ "\n hours within " +daysLeft+ " days";
-            if (hoursLeft/daysLeft >= 8){
-                message= message+ "\n YOU NEED TO HURRY!";
+            String message = " You neet to work " + hoursLeft + "\n hours within " + daysLeft + " days";
+            if (hoursLeft / daysLeft >= 8) {
+                message = message + "\n YOU NEED TO HURRY!";
             }
             messageLabel.setText(message);
 
-        } catch (UserInputException e){
+        } catch (UserInputException e) {
             messageLabel.setText(e.getMessage());
-        }
-
-        catch (Exception e){
+        } catch (Exception e) {
             messageLabel.setText(" Fix errors!");
         }
 
     }
 
-    public void activateUpdaters(){ //???
-        hours.textProperty().addListener(this::mata); // meetodi viide (public void mata)
-        updateHours.textProperty().addListener(this::mata);
-        deadline.valueProperty().addListener(this::mata);
-    }
-    public void mata(Observable observable){ ///???
-        mata();
 
+    public void activateUpdaters() { // vaatab kas mones elemendis on muudatusi
+        hours.textProperty().addListener(observable -> mata()); // addlistner meteood mille abil saan hoursi muudatusi jalgida
+        updateHours.textProperty().addListener(observable -> mata());
+        deadline.valueProperty().addListener(observable -> mata());
     }
 }

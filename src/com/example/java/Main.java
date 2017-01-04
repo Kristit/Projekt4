@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        courses= Database.load();
+        courses = Database.load();
         new CourseWindowSetup();
 
     }
@@ -19,6 +19,6 @@ public class Main extends Application {
     }
 
 
-    static ArrayList <Course> courses;
+    static ArrayList<Course> courses;
 
 }
