@@ -8,11 +8,11 @@ import java.util.ArrayList;
  */
 public class Database {
 
-    private static final String FILENAME = "courses.db"; //alati nii deklareeritud constant*
+    private static final String FILENAME = "courses.db"; //alati nii deklareeritud konstant*
 
     public static void save(ArrayList<Course> courses) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
-            out.writeObject(courses);
+            out.writeObject(courses);//sulgeb faili uhenduse
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -22,7 +22,7 @@ public class Database {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILENAME))) {
             return (ArrayList<Course>) in.readObject();
         } catch (Exception e) {
-            return new ArrayList<>();// // nothing in database, give it back "empty" object
+            return new ArrayList<>();// tühi database, teeb tühja objekti.
 
         }
     }

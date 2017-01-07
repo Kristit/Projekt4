@@ -100,8 +100,9 @@ public class TaskLine extends HBox {
 
     }
 
+    /*Allolev osa pole minu kooditud, vaid küsisin abi! */
 
-    public void activateUpdaters() { // vaatab kas mones elemendis on muudatusi
+    public void activateUpdaters() { // meetod mis annab addlistenile ulesande vaatata kas mones elemendis on muudatusi
         hours.textProperty().addListener(observable -> mata()); // addlistner meteood mille abil saan hoursi muudatusi jalgida
         updateHours.textProperty().addListener(observable -> mata());
         deadline.valueProperty().addListener(observable -> mata());

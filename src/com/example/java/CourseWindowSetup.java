@@ -4,7 +4,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -14,11 +13,7 @@ import javafx.stage.Stage;
 public class CourseWindowSetup {
     public Stage stage = new Stage();
 
-    int lefthours;
-    Label subject;
-    Label cred;
-    TextField subjectName;
-    TextField credits;
+
     VBox coursesBox;
     Button addCourseButton;
     public VBox vbox = new VBox();
@@ -33,7 +28,7 @@ public class CourseWindowSetup {
     private void startStage() {
         VBox vbox = new VBox(); // loon uue layouti
         vbox.setSpacing(5);
-        Scene courseWindow = new Scene(vbox, 1300, 700); //Loon tseeni ja seon selel vboxiga
+        Scene courseWindow = new Scene(vbox, 1300, 700); //Loon tseeni ja seon selle vboxiga
 
         stage.setScene(courseWindow);
         stage.show();
