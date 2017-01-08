@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Database {
 
+    /*https://docs.oracle.com/javase/7/docs/api/java/io/ObjectOutputStream.html*/
     private static final String FILENAME = "courses.db"; //alati nii deklareeritud konstant*
 
     public static void save(ArrayList<Course> courses) {
